@@ -2,8 +2,8 @@
     <div class="homePage">
         <img src="../resources/header/banner.png" alt="banner" class="homePage__banner">
         <div class="homePage__posts_title">Posts</div>
-        <input type="text" class="homePage__posts_input">
-        <button class="homePage__posts_addBtn">Add post</button>
+        <input v-model="addingPost" type="text" class="homePage__posts_input">
+        <button class="homePage__posts_addBtn" @click="postStore.addPost">Add post</button>
         <div class="homePage__posts">
             <Postitem v-for="(post) in postStore.posts" :key="post.id" :post="post" />
         </div>
@@ -14,6 +14,9 @@
 import { usePostStore } from '../stores/PostStore';
 import Postitem from './PostItem.vue';
 import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+
+const {addingPost} = storeToRefs(usePostStore());// связываем инпут и стор
 
 const postStore = usePostStore();
 
