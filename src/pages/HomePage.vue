@@ -3,9 +3,18 @@
         <img src="../resources/header/banner.png" alt="banner" class="homePage__banner">
         <div class="homePage__posts_title">Posts</div>
         <input v-model="addingPost" type="text" class="homePage__posts_input">
+        <div class="btns">
         <button class="homePage__posts_addBtn" @click="postStore.addPost">Add post</button>
+        <button 
+        class="homePage__posts_addBtn" 
+        @click="postStore.setSortLike"
+        :style="{
+            backgroundColor: postStore.sortLike? 'teal': '#fff',
+        }"
+        >sort by like</button>
+        </div>
         <div class="homePage__posts">
-            <Postitem v-for="(post) in postStore.posts" :key="post.id" :post="post" />
+            <Postitem v-for="(post) in postStore.sortBylike" :key="post.id" :post="post" />
         </div>
     </div>
 
@@ -26,6 +35,10 @@ onMounted(() => {
 
 </script>
 <style lang="scss" scoped>
+    .btns {
+        display: flex;
+        justify-content: space-between;
+    }
     .homePage {
         padding-bottom: 100px;
         width: 100%;
@@ -53,13 +66,10 @@ onMounted(() => {
                 width: 100px;
                 height: 50px;
                 background-color: teal;
-                border: none;
+                border: 1px solid teal;
+                color: #181A2A;
                 border-radius: 5px;
                 margin-top: 5px;
-                display: block;
-                margin-left: auto;
-                margin-right: 0;
-                color: #fff;
                 text-transform: uppercase;
                 cursor: pointer;
             }

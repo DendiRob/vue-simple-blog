@@ -4,10 +4,18 @@ export const usePostStore = defineStore('postStore', {
     state: () => ({
         posts: [],
         page: 1,
-        addingPost: ''
+        addingPost: '',
+        sortLike: false
     }),
     getters: {
-
+        sortBylike() {
+            if(this.sortLike){
+                const byLikes = this.posts.filter(post => post.isLike)
+                return byLikes
+            }else {
+                return this.posts
+            }
+        }
     },
     actions: {
         async getPosts() {
@@ -39,6 +47,9 @@ export const usePostStore = defineStore('postStore', {
             if (index !== -1) {
                 this.posts[index].isLike = !this.posts[index].isLike;
             }
+        },
+        setSortLike(){
+            this.sortLike = !this.sortLike
         },
         deletePost(post){
             this.posts = this.posts.filter(i => i.id !== post.id)
