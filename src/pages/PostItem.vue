@@ -1,7 +1,7 @@
 <template>
     <div class="post">
         <div class="post__info">
-            <div class="post__title">{{ post.title }}</div><br />
+            <router-link :to="`post/${post.id}`" class="post__title">{{ post.title }}</router-link><br /> 
             <div class="post__body">{{ post.body }}</div>
         </div>
         <div class="post__btns">
